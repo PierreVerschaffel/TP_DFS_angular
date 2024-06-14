@@ -50,6 +50,8 @@ export class PrincipalComponent {
   selectedSalon: string = '';
   selectedSalonNom: string = '';
 
+  showMessageInput: boolean = true;
+
   formulaire: FormGroup = this.formBuilder.group({
     nom: ['', Validators.required],
   });
@@ -74,9 +76,12 @@ export class PrincipalComponent {
 
   onSelectionServeur(serveurId: string) {
     this.selectedServeur = serveurId;
+    this.loadMessages(serveurId);
+    this.showMessageInput = false;
   }
 
   onSelectionSalon(salonId: string, selectedSalonNom: string) {
+    this.showMessageInput = true;
     this.selectedSalon = salonId;
     this.selectedSalonNom = selectedSalonNom;
     this.loadMessages(salonId);

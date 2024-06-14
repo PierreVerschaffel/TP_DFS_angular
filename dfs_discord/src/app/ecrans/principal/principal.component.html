@@ -43,31 +43,32 @@
   }
 
 
-
-  <div class="liste-message">
-    @if(selectedSalon) {
-      <h3>{{ selectedSalonNom }}</h3>
-      <div>
-        <form class="formulaire-message" [formGroup]="formulaireMessage" (ngSubmit)="onCreateMessage()">
-          <mat-form-field>
-            <mat-label>Envoyer un message</mat-label>
-            <input matInput placeholder="" formControlName="contenu" />
-          </mat-form-field>
-          <button type="submit" mat-flat-button color="primary">
-            Envoyer
-          </button>
-        </form>
-      </div>
-    }
-    @for(message of listeMessage; track message._id) {
-        <div class="message">
-          <img class="avatar" [attr.src]="message.utilisateurAvatar" />
-          <div class="partie-message">
-            <div class="utilisateur">{{ message.utilisateurEmail }}</div>
-            <p class="contenu">{{ message.contenu }}</p>
-            <p class="date">{{ message.date | date:'short' }}</p>
-          </div>
-        </div>
-    }
-  </div>
+ @if(showMessageInput){
+   <div class="liste-message">
+     @if(selectedSalon) {
+       <h3>{{ selectedSalonNom }}</h3>
+       <div>
+         <form class="formulaire-message" [formGroup]="formulaireMessage" (ngSubmit)="onCreateMessage()">
+           <mat-form-field>
+             <mat-label>Envoyer un message</mat-label>
+             <input matInput placeholder="" formControlName="contenu" />
+           </mat-form-field>
+           <button type="submit" mat-flat-button color="primary">
+             Envoyer
+           </button>
+         </form>
+       </div>
+     }
+     @for(message of listeMessage; track message._id) {
+         <div class="message">
+           <img class="avatar" [attr.src]="message.utilisateurAvatar" />
+           <div class="partie-message">
+             <div class="utilisateur">{{ message.utilisateurEmail }}</div>
+             <p class="contenu">{{ message.contenu }}</p>
+             <p class="date">{{ message.date | date:'short' }}</p>
+           </div>
+         </div>
+     }
+   </div>
+ }
 </main>
