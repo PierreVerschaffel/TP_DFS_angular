@@ -16,9 +16,20 @@ export class ServeurService {
     private utilisateurModel: Model<UtilisateurDocument>,
   ) {}
 
-  async create(createdServeurDto: any): Promise<Serveur> {
-    const createdServeur = new this.serveurModel(createdServeurDto);
-    return createdServeur.save();
+async create(createServeurDto: any, email: string): Promise<Serveur> {
+    const utilisateur = await this.utilisateurModel.findOne({ email }).exec();
+    const createdServeur = new this.serveurModel({
+      ...createServeurDto,
+      admin: utilisateur._id,
+    });
+    const savedServeur = await createdServeur.save();
+
+    await this.utilisateurModel.findOneAndUpdate(
+      { email },
+      { $addToSet: { serveurs: savedServeur._id } },
+    );
+
+    return savedServeur;
   }
 
   async findAllPublic(): Promise<Serveur[]> {

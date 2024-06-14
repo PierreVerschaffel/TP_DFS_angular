@@ -17,9 +17,6 @@ export class Serveur {
 
   @Prop()
   public: boolean;
-
-  @Prop()
-  salons: Salon[];
 }
 
 export const ServeurSchema = SchemaFactory.createForClass(Serveur);

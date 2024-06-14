@@ -76,7 +76,6 @@ export class PrincipalComponent {
 
   onSelectionServeur(serveurId: string) {
     this.selectedServeur = serveurId;
-    this.loadMessages(serveurId);
     this.showMessageInput = false;
   }
 
@@ -90,7 +89,7 @@ export class PrincipalComponent {
   loadMessages(salonId: string) {
     this.http
       .get<Message[]>(`http://localhost:3000/message/${salonId}`)
-      .subscribe((messages) => {(this.listeMessage = messages), console.log(messages)});
+      .subscribe((messages) => {(this.listeMessage = messages)});
   }
 
   onCreateMessage() {
@@ -105,7 +104,6 @@ export class PrincipalComponent {
       this.http
         .post('http://localhost:3000/message', messageData)
         .subscribe((nouveauMessage) => {
-          console.log(nouveauMessage);
           this.listeMessage.push(nouveauMessage as Message);
           this.formulaireMessage.reset();
         });
@@ -124,7 +122,6 @@ export class PrincipalComponent {
       this.http
         .post('http://localhost:3000/salon', salonData)
         .subscribe((nouveauSalon) => {
-          console.log(nouveauSalon);
           this.listeSalon.push(nouveauSalon as Salon);
           this.formulaire.reset();
         });

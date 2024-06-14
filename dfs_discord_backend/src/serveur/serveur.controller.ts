@@ -26,7 +26,8 @@ export class ServeurController {
   }
 
   @Post()
-  async create(@Body() createServeurDto: any) {
-    return this.serveurService.create(createServeurDto);
+  @UseGuards(AuthGuard)
+  async create(@Body() createServeurDto: any, @Request() requete) {
+    return this.serveurService.create(createServeurDto, requete.user.sub);
   }
 }
